@@ -88,7 +88,7 @@ def print_high_low(sample_mutation_count):
 def parse_data(df):
     patterns = defaultdict(lambda: defaultdict(int))
     sample_mutation_count = defaultdict(lambda: defaultdict(int))
-    uniq_counter = defaultdict(int)
+    uniq  = set()
 
     ##Go over each line as a dict and count relevant info
     for i, mutation in enumerate(df.to_dict("records"), start=2):
@@ -102,9 +102,9 @@ def parse_data(df):
         mut_from,mut_to,mutation_id,sample_id = mutation_data
     
         ##Count mutation patterns once for each mutation_id 
-        if uniq_counter[mutation_id] == 0:
+        if mutation_id not in uniq:
             patterns[mut_from][mut_to] +=1
-            uniq_counter[mutation_id] = 1
+            uniq.add(mutation_id)
 
         ##Count unique mutations per sample
         sample_mutation_count[sample_id][mutation_id] += 1
