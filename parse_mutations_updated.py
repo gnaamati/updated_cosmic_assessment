@@ -59,6 +59,7 @@ def display_patterns(patterns):
     ##Go over dict and print all the patterns and their unique mutation count
     print(f"Q 2.1") 
     for allele in patterns:
+        print (f"mutated_from_allele\tmutated_to_allele\tCounts of unique_icgc_mutation_id")
         print(f"Mutated from {allele}")
         for mut_allele in patterns[allele]:
             print(f"Mutated to allele {mut_allele}: {patterns[allele][mut_allele]}") 
@@ -67,7 +68,7 @@ def print_high_low(sample_mutation_count):
     lowest     = float('inf')
     highest    = 0 
     lowest_id  =  highest_id =  ''
-   
+
     ##Go over all the 
     for sample in sample_mutation_count:
         ##count how many unique mutations per sample_id
