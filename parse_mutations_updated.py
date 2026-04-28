@@ -31,10 +31,10 @@ def check_columns(df):
 def get_data(mutation):
     valid_dna = {"A", "C", "G", "T"} ##Assuming DNA is uppercase
     
-    mut_from    = mutation.get('mutated_from_allele')
-    mut_to      = mutation.get('mutated_to_allele')
-    mutation_id = mutation.get('icgc_mutation_id')
-    sample_id   = mutation.get('icgc_sample_id')
+    mut_from    = mutation.mutated_from_allele
+    mut_to      = mutation.mutated_to_allele
+    mutation_id = mutation.icgc_mutation_id
+    sample_id   = mutation.icgc_sample_id
 
     # Check for missing or empty values
     for val in (mut_from, mut_to, mutation_id, sample_id):
@@ -91,10 +91,11 @@ def parse_data(df):
     uniq  = set()
 
     ##Go over each line as a dict and count relevant info
-    for i, mutation in enumerate(df.to_dict("records"), start=2):
+    #for i, mutation in enumerate(df.to_dict("records"), start=2):
+    for i, (_, row) in enumerate(df.iterrows(), start=2):
         
         ##Get relevant data and check validity - skip if not valid       
-        mutation_data = get_data(mutation)
+        mutation_data = get_data(row)
         if mutation_data is None:
             print(f"skipping line {i}")
             continue 
